@@ -1,8 +1,12 @@
 [TOC]
+
 ------
+
 # 1. Linux 软件包管理器 yum
+
 **前言**
 &emsp;&emsp;在Linux下安装软件，有三种方法。
+
 ```shell
 源码			下载到程序的源代码，并进行编译，得到可执行程序。
 rmp包		
@@ -17,11 +21,14 @@ yum命令行		全称：Yellowdog Updater Modified，主要应用在Fedora, RedHa
 ```shell
 yum [options] command [package ...]
 ```
+
 **作用**
+
 ```
 安装
 解决依赖关系
 ```
+
 1. **查看软件包**  
 
     &emsp;&emsp;通过 yum list 命令可以罗列出当前一共有哪些软件包。由于包的数目可能非常之多，这里我们需要使用 grep 命令只
@@ -77,6 +84,7 @@ yum [options] command [package ...]
     -R：设置yum处理一个命令的最大等待时间； 
     -C：完全从缓存中运行，而不去下载或者更新任何头文件。
     ```
+
     **常用命令：**
 
     ```shell
@@ -117,31 +125,33 @@ yum [options] command [package ...]
     alias 			列出或创建命令别名。
     autoremove 		删除所有原先因为依赖关系安装的不需要的软件包。
     ```
+
     **查看 yum 源**
     建议不要轻易修改！！！
-    
+
     ```shell
     ls /etc/yum.conf
     /etc/yum.conf
     [xcs101@VM-4-6-centos ~]$ vim /etc/yum.conf
     ```
+
     ![image-20220910144019882](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux3/202209131724448.png)
-    
+
     **yum 配置**
-    
+
     修改配置
-    
+
     ```shell
     vim /etc/yum.repos.d/CentOS-Base.repo
     ```
+
     当然，我的是没有配置过的。
     ![image-20220910144822727](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux3/202209131724449.png)
-    
+
     **关于 rzsz**
-    
+
     这个工具用于 windows 机器和远端的 Linux 机器通过 XShell 传输文件。
     安装完毕之后可以通过拖拽的方式将文件上传过去。
-    
 
 # 2. Linux编辑器 - vim 使用
 
@@ -204,7 +214,9 @@ vim 文件名
 按「a」	进入插入模式后，是从目前光标所在位置的下一个位置开始输入文字；
 按「o」	进入插入模式后，是插入新的一行，从行首开始输入文字。
 ```
+
 **从插入模式切换为命令模式**
+
 ```shell
 按「ESC」键。  
 ```
@@ -319,6 +331,10 @@ vs 新文件
 ```
 
 然后「ctrl」+「w」按两次即可实现文档间切换。
+
+**补充—多行注释**
+
+首先按下[Ctrl] + [V],通过[h / j / k/ l]上下选择指定行，再按下[Shift] + [i]，输入[ //] 后按下 [Esc] 即可实现多行注释。
 
 # 3. Linux编译器 - gcc/g++ 使用
 
@@ -852,7 +868,9 @@ gcc $^ -o $@
 ```c
 printf("abc\r\ncba\rrr\bz\n");
 ```
+
 结果如下：
+
 ```c
 abc
 rza
