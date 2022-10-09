@@ -534,7 +534,7 @@ Unix时间戳（英文为Unix epoch, Unix time, POSIX time 或 Unix timestamp）
 |      -i      |        忽略大小写的不同，所以大小写视为相同。        |
 |      -n      |                    顺便输出行号。                    |
 |      -v      | 反向选择，亦即显示出没有 '搜寻字符串' 内容的那一行。 |
-|      -E      |                                                      |
+|      -E      |                   可以用来扩展选项为正则表达式。 如果使用了grep 命令的选项-E，则应该使用|来分割多个pattern，以此实现OR操作。                                   |
 |      -c      |            计算找到 '搜寻字符串' 的次数。            |
 |      -a      |      将 binary 文件以 text 文件的方式搜寻数据。      |
 | --color=auto |        可以将找到的关键词部分加上颜色的显示。        |
@@ -563,7 +563,7 @@ Unix时间戳（英文为Unix epoch, Unix time, POSIX time 或 Unix timestamp）
 
 # 20.tar指令
 
-语法： <font color=#8A2BE2 size=4 >tar [参数] 文件与目录 ....  </font>
+语法： <font color=#8A2BE2 size=4 >tar [参数] 文件与目录 ....&#x2028; </font>
 
 功能： 打包 / 解包，不打开它，直接看内容 。
 
