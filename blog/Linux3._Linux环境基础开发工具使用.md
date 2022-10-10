@@ -152,7 +152,7 @@ yum [options] command [package ...]
 
     这个工具用于 windows 机器和远端的 Linux 机器通过 XShell 传输文件。
     安装完毕之后可以通过拖拽的方式将文件上传过去。
-    1. 从客户端上传文件到服务端：
+    从客户端上传文件到服务端：
     ```shell
     rz [选项]
     选项说明:
