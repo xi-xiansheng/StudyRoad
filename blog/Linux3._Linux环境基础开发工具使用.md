@@ -152,6 +152,32 @@ yum [options] command [package ...]
 
     这个工具用于 windows 机器和远端的 Linux 机器通过 XShell 传输文件。
     安装完毕之后可以通过拖拽的方式将文件上传过去。
+    1. 从客户端上传文件到服务端：
+    ```shell
+    rz [选项]
+    选项说明:
+    -+, --append	:将文件内容追加到已存在的同名文件
+    -a,--ascii		:以文本方式传输
+    -b, --binary	:以二进制方式传输，推荐使用
+    --delay-startup N:等待N秒
+    -e, --escape	:对所有控制字符转义，建议使用
+    -E, --rename	:已存在同名文件则重命名新上传的文件，以点和数字作为后缀
+    -p, --protect	:对ZMODEM协议有效，如果目标文件已存在则跳过 -
+    -q, --quiet		:安静执行，不输出提示信息
+    -v, --verbose	:输出传输过程中的提示信息
+    -y, --overwrite	:存在同名文件则替换
+    -X, --xmodem	:使用XMODEM协议
+    --ymodem		:使用YMODEM协议
+    -Z, --zmodem	:使用ZMODEM协议
+    --version		:显示版本信息
+    --h, --help		:显示帮助信息
+    
+    ```
+    从服务端发送文件到客户端：只能是文件，若为目录（文件夹）需打包后再用
+
+    ```shell
+    sz filename
+    ```
 
 # 2. Linux编辑器 - vim 使用
 
