@@ -1016,11 +1016,11 @@ int main()
 
 在**指令**那一节，我们初步认识了重定向。在此，我们也将程序的结果重定向到**log.txt**文件当中。结果如下，毫无疑问。
 
-![image-20230311195121475](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303112200283.png)
+![image-20230314233025387](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142330954.png)
 
 对`fflush(stdout)`注释后，结果如下图所示：
 
-![image-20230311195701086](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303112200284.png)
+![image-20230314232952996](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142330435.png)
 
 可以看到，除了`hello write\n`输出一次外，其余均输出了两次。我们暂不考虑这一点。
 
@@ -1049,7 +1049,7 @@ else
 
 结果如下图所示：
 
-![image-20230311200604401](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303112200286.png)
+![image-20230314233109679](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142332554.png)
 
 可以看到，未重定向时，标准输出的缓冲策略变为行刷新，重定向后，标准输出的刷新策略并未改变，仍是全缓冲。但是，我们并未关闭`fd = 1`的文件，那么，究竟是结果的重定向，还是程序运行前，系统将其”替换“了呢？亦或是其他博主所言，文件的类型导致刷新策略的变化呢？
 
@@ -1200,7 +1200,6 @@ int dup2(int oldfd, int newfd);
 
 -   调用成功则返回新的文件描述符，出错则返回-1。
 
-
 **tips：**
 
 -   如果oldfd不是有效的文件描述符，则`dup2`调用失败，并且此时文件描述符为newfd的文件没有被关闭。
@@ -1239,13 +1238,13 @@ int main()
 
 真实的磁盘如下图所示，为方便理解，暂不考虑固态停盘。
 
-![机械磁盘](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\机械磁盘.png)
+![机械磁盘](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142313138.png)
 
 **盘片**
 
 一个磁盘有多个盘片组成，一个盘片的上下两个面都是可以进行数据读写的。
 
-![磁片1](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\磁片1.png)
+![磁片1](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142313970.png)
 
 
 
@@ -1253,7 +1252,7 @@ int main()
 
 每个盘面是由很多半径不同的同心圆组成的，每个同心圆被划分为一个个**磁道（Track）**，每个磁道又划分为若干个弧段,即一个个**扇区（Sector）**。其中扇区的物理量设计有两种大小，分别是**512Bytes**与**4KBytes**。如下图所示。
 
-![磁道扇区](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\磁道扇区1.png)
+![磁道扇区1](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142314072.png)
 
 **tips: **
 
@@ -1264,7 +1263,7 @@ int main()
 
 每个盘面对应一个**读写磁头（Head）**，所有的磁头都是连在同一个磁臂上的，故所有磁头只能“共同进退”。所有盘面中相对位置相同的磁道组成**柱面（Cylinder）**。如下图：
 
-![磁盘4_1](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\磁盘4_1.png)
+![磁盘4_1](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142314326.png)
 
 **数据写入的顺序是：以柱面为单位，从上到下，从外到内**。即写数据的时候，先写一个柱面，写满之后才会往里面的磁道写数据。
 
@@ -1278,7 +1277,7 @@ int main()
 
 因此，磁盘上的任意扇区都可以通过（磁头号，磁道号，扇区号）的**三元组**唯一标识，这个三元组就是磁盘的物理地址。其中磁头是从0开始编号，磁道也是从0开始编号，而扇区是从1开始编号。为什么扇区是与众不同的就不得而知了。
 
-![磁盘运行](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\磁盘运行.gif)
+![磁盘运行](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142337156.gif)
 
 ## 分区
 
@@ -1286,7 +1285,7 @@ int main()
 
 &emsp;&emsp;于是，我们可以将其抽象为线性结构。例如，C语言上的二维数组，即便是二维的，但是其本质仍为一维结构。亦可以将其看成被拉直了的磁带。其底层交由驱动去做，从而实现操作系统与外设的解耦。
 
-![img](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\u=1436091162,998843874&fm=253&fmt=auto&app=138&f=JPEG.jpeg)
+![img](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142306174.jpeg)
 
 &emsp;&emsp;因此，我们可以形象的将磁盘看成一个巨大的线性结构`sector array[ ]`，即巨大的数组，每个单元为一个扇区。然后继续抽象化，将盘面、磁道（柱面），扇区都抽象到这个线性数组结构中，进而磁盘上的扇区变成了一个个的数组下标。在OS中，将该下标对应的地址称为LBA逻辑块地址。
 
@@ -1294,11 +1293,11 @@ int main()
 
 &emsp;&emsp;以80个磁道，18个扇区，2个磁头的磁盘为例，具体的转换过程如下：
 
-![磁盘映射关系](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\磁盘映射关系-1678751412876-4.png)
+![磁盘映射关系](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142317610.png)
 
 &emsp;&emsp;为更好的管理磁盘，便对磁盘进行**分区**。好比Windows下磁盘被分为C盘、D盘等。只要能管理好某一个区，其余区亦能管理好。
 
-![image-20181231083419786](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\image-20181231083419786.png)
+![image-20181231083419786](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142318249.png)
 
 &emsp;&emsp;为查找目前系统有的磁盘有哪些 ，可以使用`lsblk`列出系统上的所有磁盘列表。`lsblk`可以看成“ list block device”的缩写，即列出所有储存设备。
 
@@ -1313,7 +1312,7 @@ lsblk	[-dfimpt]	[device]
 -t:列出该磁盘设备的详细数据，包括磁盘伫列机制、预读写的数据量大小等
 ```
 
-![image-20181231080947094](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\image-20181231080947094.png)
+![image-20181231080947094](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142319526.png)
 
 &emsp;&emsp;从上面的输出我们可以很清楚的看到，目前的系统主要有个sr0以及一个vda的设备，而vda的设备下面仅有一分区。
 
@@ -1360,42 +1359,30 @@ Number  Start   End     Size    Type     File system  Flags		# 分区数据
 
 为进一步管理好每个区，可对每个区进行**分组**。
 
-![image-20230314091145244](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\image-20230314091145244.png)
+![image-20230314091145244](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142319817.png)
 
 以**EXT2文件系统**为例，对于每一个分区，分区的头部会包括一个启动块(Boot Block)，对于该分区的其余区域，根据分区的大小将其划分为一个个的块组(Block Group)。如下图所示：
 
-![image-20230314092549000](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\image-20230314092549000.png)
+![image-20230314092549000](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142320288.png)
 
-每个分区被划分为一个个的block。一个block的大小是由格式化的时候确定的，并且不可以更改。例如mke2fs的-b选项可以设定block大小为1024、2048或4096字节。而上图中启动块（Boot Block）的大小是确定的，  
+每个分区被划分为一个个的block。一个block的大小是由格式化的时候确定的，并且不可以更改。例如mke2fs的-b选项可以设定block大小为1024、2048或4096字节。而上图中启动块（Boot Block）的大小是确定的，每个组块（Block group）都有着相同的组成结构，均由超级块(Super Block)、块组描述符表(Group Descriptor Table)、块位图(Block Bitmap)、inode位图(inode Bitmap)、inode表(inode Table)以及数据表(Data Block)组成。如下图所示：
 
+![块组](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142320912.png)
 
-
-
-
-
-
-每个组块都有着相同的组成结构，均由超级块(Super Block)、块组描述符表(Group Descriptor Table)、块位图(Block Bitmap)、inode位图(inode Bitmap)、inode表(inode Table)以及数据表(Data Block)组成。
-
-
-
-![块组](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\块组-1678757649519-9.png)
+其中，各参数含义如下：
 
 -   **Block Group**: ext2文件系统会根据分区的大小划分为数个Block Group。而每个Block Group都有着相同的结构组成。
--   **超级块(Super Block)**:	存放文件系统本身的结构信息。记录的信息主要有:bolck 和 inode的总量，未使用的block和inode的数量，一个block和inode的大小，最近一次挂载的时间，最近一次写入数据的时间，最近一次检验磁盘的时间等其他文件系统的相关信息。Super Block的信息被破坏，可以说整个文件系统结构就被破坏了
+-   **超级块(Super Block)**:	存放文件系统本身的结构信息。记录的信息主要有:bolck 和 inode的总量，未使用的block和inode的数量，一个block和inode的大小，最近一次挂载的时间，最近一次写入数据的时间，最近一次检验磁盘的时间等其他文件系统的相关信息。Super Block的信息被破坏，可以说整个文件系统结构就被破坏了。
 -   **GDT(Group Descriptor Table)**：块组描述符，描述块组属性信息。
 -   **块位图（Block Bitmap）**：Block Bitmap中记录着Data Block中哪个数据块已经被占用，哪个数据块没有被占用。
 -   **inode位图（inode Bitmap）**：每个bit表示一个inode是否空闲可用。
--   **i节点表**:  存放文件属性 如 文件大小，所有者，最近修改时间等
+-   **inode Table**:  存放文件属性,如文件大小，所有者，最近修改时间等。
 -   **数据区**：存放文件内容。
 
-
-
-
-
-
+具体如下：
 
 **data block （数据区块）**
-data block 是用来放置文件内容数据地方，在**Ext2文件系统**中所支持的 block 大小有 1K, 2K及 4K 三种而已。在格式化时 block 的大小就固定了，且每个 block 都有编号，以方便 inode的记录啦。 不过要注意的是，由于block大小的差异，会导致该文件系统能够支持最大磁盘容量与最大单一文件大小并不相同。 因为block大小而产生的Ext2文件系统限制如下：
+data block 是用来放置文件内容数据地方，在**Ext2文件系统**中所支持的 block 大小有 1K, 2K及 4K 三种而已。在格式化时 block 的大小就固定了，且每个 block 都有编号，以方便 inode的记录。 值得注意的是，由于block大小的差异，会导致该文件系统能够支持最大磁盘容量与最大单一文件大小并不相同。 block大小而产生的Ext2文件系统限制如下：
 
 |     Block大小      | 1KB  |  2KB  | 4KB  |
 | :----------------: | :--: | :---: | :--: |
@@ -1409,11 +1396,26 @@ data block 是用来放置文件内容数据地方，在**Ext2文件系统**中�
 -   如果文件大于block的大小，则一个文件会占用多个block数量；
 -   若文件小于block，则该block的剩余容量就不能够再被使用了（磁盘空间会浪费）。
 
+另外，不知道大家是否好奇，当你使用`ls -l`或`ll`去查询目录时，第一行都会出现一个`total`！ 其实那就是该目录下的所有数据所耗用的实际**block数量*block大小**的值。 可以使用`ll -sh`查看：
 
+```c
+[xcs101@VM-4-6-centos iobase]$ ll -sh
+total 28K
+   0 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log0.txt
+   0 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log1.txt
+   0 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log2.txt
+   0 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log3.txt
+   0 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log4.txt
+   0 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log5.txt
+4.0K -rw-rw-r-- 1 xcs101 xcs101  209 Mar 14 00:21 log.txt
+4.0K -rw-rw-r-- 1 xcs101 xcs101   68 Mar 11 02:22 makefile
+ 12K -rwxrwxr-x 1 xcs101 xcs101 8.5K Mar 14 00:21 proc
+8.0K -rw-rw-r-- 1 xcs101 xcs101 6.8K Mar 14 00:21 proc.c
+```
 
 **inode table**
 
-
+inode记录的文件数据至少如下内容：
 
 -   该文件的存取模式（ read/write/excute）；
 -   该文件的拥有者与群组（ owner/group）；
@@ -1424,66 +1426,103 @@ data block 是用来放置文件内容数据地方，在**Ext2文件系统**中�
 -   定义文件特性的旗标（ flag）；
 -   该文件真正内容的指向 （ pointer）；  
 
-
-
-inode的数量与大小也是在格式化时就已经固定了，除此之外inode还有些什么特色呢？
+inode的数量与大小也是在格式化时就已经固定了，除此之外inode还有如下特色：
 
 -   每个inode大小均固定为128Bytes（新的ext4与xfs可设置到256Bytes）；
--   每个文件都仅会占用一个inode而已；
+-   每个文件基本上仅会占用一个inode；
 -   文件系统能够创建的文件数量与inode的数量有关；
 -   系统读取文件时需要先找到inode，并分析inode所记录的权限与使用者是否符合，若符合才能够开始实际读取block的内容。  
 
+若想要观察文件所占用的inode号码时，可以使用 `ls -i`查看，如：
+
+```c
+[xcs101@VM-4-6-centos iobase]$ ls -il
+total 28
+1051628 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log0.txt
+1051631 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log1.txt
+1051632 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log2.txt
+1051633 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log3.txt
+1051635 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log4.txt
+1051636 -rw-r--r-- 1 xcs101 xcs101    0 Mar  9 11:00 log5.txt
+1051630 -rw-rw-r-- 1 xcs101 xcs101  209 Mar 14 00:21 log.txt
+1051625 -rw-rw-r-- 1 xcs101 xcs101   68 Mar 11 02:22 makefile
+1051624 -rwxrwxr-x 1 xcs101 xcs101 8672 Mar 14 00:21 proc
+1051623 -rw-rw-r-- 1 xcs101 xcs101 6889 Mar 14 00:21 proc.c
+```
+
+已知inode只有128Bytes，但inode记录一个block号码要4Byte。假定一个文件有400MB且每个block为4K时， 则至少要102400个block号码的记录！inode哪有这么多可记录的信息？为此系统将inode记录block号码的区域定义为**12个直接，一个间接，一个双间接与一个三间接**记录区。结构如下图所示：
+
+![inode结构示意图](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142321239.png)
+
+为求得inode能够指定多少个block呢？我们以**1K** block来说明：
+
+-   **12个直接指向**：12\*1K=12K由于是直接指向，所以总共可记录12笔记录，因此总额大小为如上所示；
+-   **间接**： 256*1K=256K每笔block号码的记录会花去4Bytes，因此1K的大小能够记录256笔记录，因此一个间接可以记录的文件大小如上；
+-   **双间接**： 256\*256\*1K=2562K第一层block会指定256个第二层，每个第二层可以指定256个号码，因此总额大小如上；
+-   **三间接**： 256\*256\*256*1K=2563K第一层block会指定256个第二层，每个第二层可以指定256个第三层，每个第三层可以指定256个号码，因此总额大小如上；
+-   **总额**：将直接、间接、双间接、三间接加总，得到12+256+256256+256256*256（K）=16GB。
+
+但这个方法不能用在2K及4K block大小的计算中， 因为大于2K的block将会受到Ext2文件系统本身的限制。 
+
+由上述可知，当我们`touch`一个文件时：
+
+-   遍历**inode bitmap**，找到一个空闲的inode，**block bitmap**中查找未被使用的数据块；
+
+-   在inode表当中找到对应的inode，存储文件属性；
+
+-   依据inode指向的block，将数据写入。
+
+## 软、硬连接
+
+在Linux下有两种链接文件方式，一种类似Windows的快捷方式，称为软链接（也叫符号链接）； 另一种则是通过文件系统的inode链接来产生新文件名，而不产生新文件，称为实体链接（硬链接）。其链接方式如下：
+
+```c
+ln [-sf] 源文件 目标文件
+选项与参数：
+-s:	如果不加任何参数就进行链接，那就是hard link，至于-s就是symbolic link(符号链接/软连接);
+-f:	如果 目标文件 存在，就将目标文件直接移除后再创建！
+```
+
+例如：软连接
+
+![image-20230314223245358](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142321594.png)
+
+可以看到，软链接就是新建一个独立的文件，而这个文件会让数据的读取指向它链接的那个文件的文件名！这就好比Windows中的快捷方式。且由结果来看，这是两个不同的inode，即两个独立的文件。
+
+再来看硬链接：
+
+![image-20230314224055540](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142322936.png)
+
+可以看到，硬链接下，两个文件有着相同的inode，文件大小等。换言之，硬链接文件就是源文件的一个别名。且对比上一张图片，可以看到，标记的数字变为2。该字段表示有多少个文件名链接到这个inode号码。
+
+当我们切换到上级目录时，可以看到，每个目录的硬链接数目均大于等于2，即便新建的目录也是从2开始。
+
+![image-20230314224752593](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\image-20230314224752593.png)
+
+在**iobase目录**下新建一个空目录后发现，其硬链接数目变为了3。
+
+![image-20230314225113959](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142324473.png)
+
+事实上，在每个目录下均存在两个隐藏目录，`.`和`..`，代表着当前目录和上级目录。通过命令我们可以发现其inode与`.`相同，意味着其是同一文件。
+
+![image-20230314225257856](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142306187.png)
+
+对于`..`，其与当前目录的上级目录的inode相同，故前面**iobase**硬链接数目变为3。
+
+**总结与补充**
+
+-   删除软链接并不影响源文件，其相当于windows下的快捷方式。
+-   删除源文件后，软链接的文件便无法打开。
+-   硬链接不能跨Filesystem。
+-   硬链接不能链接目录。如果使用硬链接到目录时， 链接的数据需要连同被链接目录下面的所有数据都创建链接，造成环境相当大的复杂度 。
+
+![image-20230314230256518](https://xcs-md-images.oss-cn-nanjing.aliyuncs.com/Linux/Linux7/202303142306611.png)
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-![image-20230313234814217](D:\Users\Mr_xi\Documents\Typora\Linux\Linux7._基础IO.assets\image-20230313234814217.png)
 
 
 
